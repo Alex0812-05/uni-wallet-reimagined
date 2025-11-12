@@ -8,12 +8,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ArrowLeft, User, Trophy, Lock, BarChart3, LogOut } from 'lucide-react';
 import { toast } from 'sonner';
+import { PremiumDialog } from '@/components/PremiumDialog';
 
 const Perfil = () => {
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
   const [profile, setProfile] = useState<any>(null);
   const [editing, setEditing] = useState(false);
+  const [premiumOpen, setPremiumOpen] = useState(false);
   const [formData, setFormData] = useState({
     nome: '',
     telefone: '',
@@ -189,7 +191,7 @@ const Perfil = () => {
               </div>
             </CardContent>
           </Card>
-          <Card className="bg-gradient-premium cursor-pointer hover:shadow-lg transition-shadow">
+          <Card className="bg-gradient-premium cursor-pointer hover:shadow-lg transition-shadow" onClick={() => setPremiumOpen(true)}>
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
                 <div className="bg-white/20 p-3 rounded-lg">
@@ -214,6 +216,8 @@ const Perfil = () => {
           Sair da Conta
         </Button>
       </div>
+
+      <PremiumDialog open={premiumOpen} onOpenChange={setPremiumOpen} />
     </div>
   );
 };
