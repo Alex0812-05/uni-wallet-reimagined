@@ -69,23 +69,13 @@ const LandingPage = () => {
             <p className="text-lg mb-8 text-white/90">
               O WalletYoUni é a plataforma gamificada que ensina estudantes universitários a controlar suas finanças, definir metas e construir um futuro próspero através de quizzes, desafios e conteúdos educativos.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button 
-                size="lg"
-                onClick={() => navigate('/auth')}
-                className="bg-warning hover:bg-warning/90 text-foreground font-semibold"
-              >
-                Começar Gratuitamente
-              </Button>
-              <Button 
-                size="lg"
-                variant="outline"
-                onClick={() => navigate('/auth')}
-                className="border-2 border-white text-white hover:bg-white/10"
-              >
-                Ver Demonstração
-              </Button>
-            </div>
+            <Button 
+              size="lg"
+              onClick={() => navigate('/auth')}
+              className="bg-warning hover:bg-warning/90 text-foreground font-semibold"
+            >
+              Começar Gratuitamente
+            </Button>
           </div>
         </div>
       </section>
