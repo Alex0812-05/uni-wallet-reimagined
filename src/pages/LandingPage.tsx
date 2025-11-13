@@ -209,30 +209,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 px-4 bg-success text-white">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold mb-2">10K+</div>
-              <div className="text-sm text-white/80">Estudantes Ativos</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">95%</div>
-              <div className="text-sm text-white/80">Taxa de Satisfação</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">500+</div>
-              <div className="text-sm text-white/80">Conteúdos Educativos</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">R$ 2M+</div>
-              <div className="text-sm text-white/80">Economizados pelos Usuários</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Testimonials Section */}
       <section id="depoimentos" className="py-20 px-4">
         <div className="container mx-auto max-w-6xl">
