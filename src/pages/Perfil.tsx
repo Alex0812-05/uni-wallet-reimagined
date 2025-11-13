@@ -112,7 +112,7 @@ const Perfil = () => {
                       <span className="text-sm opacity-90">Conquistas</span>
                       <Lock className="h-5 w-5" />
                     </div>
-                    <p className="text-2xl font-bold">Em breve</p>
+                    <p className="text-2xl font-bold">Seja Premium</p>
                   </div>
                 </div>
               </div>
