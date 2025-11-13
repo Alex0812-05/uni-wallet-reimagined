@@ -81,7 +81,7 @@ const Auth = () => {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold">CarteiraYoUni</CardTitle>
+          <CardTitle className="text-3xl font-bold">WalletYoUni</CardTitle>
           <CardDescription>Educação Financeira para Estudantes</CardDescription>
         </CardHeader>
         <CardContent>
