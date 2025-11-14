@@ -13,6 +13,7 @@ const Financeiro = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('despesas_fixas');
+  const [salarioMensal, setSalarioMensal] = useState<number>(0);
   const [transactions, setTransactions] = useState<any>({
     despesas_fixas: {},
     despesas_variaveis: {},
@@ -24,7 +25,22 @@ const Financeiro = () => {
 
   useEffect(() => {
     fetchTransactions();
+    fetchSalario();
   }, [user]);
+
+  const fetchSalario = async () => {
+    if (!user) return;
+
+    const { data } = await supabase
+      .from('profiles')
+      .select('salario_mensal')
+      .eq('id', user.id)
+      .single();
+
+    if (data) {
+      setSalarioMensal(data.salario_mensal || 0);
+    }
+  };
 
   const getWeekStart = () => {
     const now = new Date();
@@ -119,9 +135,40 @@ const Financeiro = () => {
     return values.reduce((sum: number, val: any) => sum + (parseFloat(String(val)) || 0), 0) as number;
   };
 
+  const calculateTotalExpenses = (): number => {
+    let total = 0;
+    ['despesas_fixas', 'despesas_variaveis'].forEach(tipo => {
+      const values = Object.values(transactions[tipo] || {});
+      total += values.reduce((sum: number, val: any) => sum + (parseFloat(String(val)) || 0), 0) as number;
+    });
+    return total;
+  };
+
+  const calculateSaldo = (): number => {
+    return salarioMensal - calculateTotalExpenses();
+  };
+
   return (
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-4xl mx-auto space-y-6">
+        {/* Aviso de salário não cadastrado */}
+        {salarioMensal === 0 && (
+          <Card className="bg-warning/10 border-warning">
+            <CardContent className="p-4">
+              <p className="text-sm text-center">
+                Você ainda não cadastrou seu salário.{' '}
+                <Button 
+                  variant="link" 
+                  className="p-0 h-auto text-warning font-semibold"
+                  onClick={() => navigate('/perfil')}
+                >
+                  Clique aqui para adicionar.
+                </Button>
+              </p>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Header */}
         <Card>
           <CardContent className="p-6">
@@ -135,11 +182,19 @@ const Financeiro = () => {
                   <p className="text-muted-foreground">Gerencie seus gastos da semana</p>
                 </div>
               </div>
-              <div className="text-right">
-                <p className="text-sm text-muted-foreground">Total Geral</p>
-                <p className="text-2xl font-bold text-success">
-                  R$ {calculateTotal().toFixed(2).replace('.', ',')}
-                </p>
+              <div className="text-right space-y-2">
+                <div>
+                  <p className="text-sm text-muted-foreground">Salário Mensal</p>
+                  <p className="text-xl font-bold text-primary">
+                    R$ {salarioMensal.toFixed(2).replace('.', ',')}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Saldo Restante</p>
+                  <p className={`text-2xl font-bold ${calculateSaldo() >= 0 ? 'text-success' : 'text-destructive'}`}>
+                    R$ {calculateSaldo().toFixed(2).replace('.', ',')}
+                  </p>
+                </div>
               </div>
             </div>
           </CardContent>
