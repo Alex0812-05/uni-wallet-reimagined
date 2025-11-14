@@ -65,6 +65,7 @@ export type Database = {
           nome: string | null
           pais: string | null
           pontos: number | null
+          salario_mensal: number | null
           telefone: string | null
           updated_at: string | null
         }
@@ -77,6 +78,7 @@ export type Database = {
           nome?: string | null
           pais?: string | null
           pontos?: number | null
+          salario_mensal?: number | null
           telefone?: string | null
           updated_at?: string | null
         }
@@ -89,6 +91,7 @@ export type Database = {
           nome?: string | null
           pais?: string | null
           pontos?: number | null
+          salario_mensal?: number | null
           telefone?: string | null
           updated_at?: string | null
         }

@@ -21,7 +21,8 @@ const Perfil = () => {
     telefone: '',
     cidade: '',
     estado: '',
-    pais: ''
+    pais: '',
+    salario_mensal: ''
   });
 
   useEffect(() => {
@@ -43,16 +44,22 @@ const Perfil = () => {
           telefone: data.telefone || '',
           cidade: data.cidade || '',
           estado: data.estado || '',
-          pais: data.pais || ''
+          pais: data.pais || '',
+          salario_mensal: data.salario_mensal?.toString() || ''
         });
       }
     }
   };
 
   const handleUpdate = async () => {
+    const updateData = {
+      ...formData,
+      salario_mensal: formData.salario_mensal ? parseFloat(formData.salario_mensal) : 0
+    };
+
     const { error } = await supabase
       .from('profiles')
-      .update(formData)
+      .update(updateData)
       .eq('id', user?.id);
 
     if (error) {
@@ -163,6 +170,21 @@ const Perfil = () => {
                   onChange={(e) => setFormData({ ...formData, pais: e.target.value })}
                   disabled={!editing}
                 />
+              </div>
+              <div className="space-y-2 md:col-span-2">
+                <Label>Salário Mensal</Label>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">R$</span>
+                  <Input
+                    type="number"
+                    step="0.01"
+                    placeholder="0,00"
+                    className="pl-10"
+                    value={formData.salario_mensal}
+                    onChange={(e) => setFormData({ ...formData, salario_mensal: e.target.value })}
+                    disabled={!editing}
+                  />
+                </div>
               </div>
             </div>
             {editing ? (
